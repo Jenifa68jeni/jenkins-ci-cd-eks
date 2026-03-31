@@ -1,0 +1,36 @@
+# PROJECT DETAILS
+
+| Item                | Details                                                                 |
+|---------------------|-------------------------------------------------------------------------|
+| **Project Title**   | End-to-End CI/CD Pipeline (Jenkins + Maven + Docker + Kubernetes EKS)   |
+| **Domain**          | DevOps / CI-CD Automation                                               |
+| **Application Type**| Java Maven Application (.jar → Docker Image)                           |
+| **Source Code Repo**| GitHub – Maven Web App (https://github.com/suffixscope/maven-web-app)   |
+| **Deployment Target**| Kubernetes Deployment on Amazon EKS                                   |
+| **Cloud Platform**  | AWS (EC2 for Jenkins, EKS for deployment)                              |
+| **Pipeline Tool**   | Jenkins                                                                |
+| **Build Tool**      | Apache Maven                                                           |
+| **Containerization**| Docker                                                                 |
+| **Orchestration**   | Kubernetes (Amazon EKS)                                                |
+| **Artifact Repo**   | Docker Hub                                                             |
+
+---
+
+## 🔹 Tool Versions
+- Jenkins: **2.541.1**  
+- Java (OpenJDK): **17.0.17**  
+- Maven: **3.8.4**  
+- Docker: **25.0.14**  
+- Eksctl: **0.221.0**  
+
+---
+
+##  Objective
+Implement a complete CI/CD workflow for a Maven-based Java web application to:
+
+- Automatically pull source code from GitHub on commit  
+- Build and package with Maven  
+- Containerize with Docker  
+- Push image to Docker Hub  
+- Deploy to Kubernetes (Amazon EKS)  
+- Verify deployment via AWS LoadBalancer URL  
