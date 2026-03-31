@@ -58,6 +58,7 @@ Installed tools:
     - AmazonEC2FullAccess  
     - AmazonEKSClusterPolicy  
     - AmazonEKSWorkerNodePolicy
+    - 
 # CLUSTER CREATION
 eksctl create cluster \
   --name jenifa-cluster \
@@ -87,13 +88,14 @@ This allows Jenkins to communicate securely with EC2 and EKS services for deploy
 - **kubectl** → Interact with the Kubernetes cluster  
 - **eksctl** → Manage EKS cluster creation and scaling  
 
----
+
 
 ## 🔹 Kubeconfig Setup
 - Copy the `.kube/config` file generated during cluster creation into Jenkins server.  
 - Place it inside `/var/lib/jenkins/qube/config`.  
 - Verified cluster connectivity with:  
   kubectl get nodes
+  
 ##🔹 Deployment Manifest (deployment.yaml)
 apiVersion: apps/v1
 kind: Deployment
@@ -114,6 +116,7 @@ spec:
         image: jenifajeni/maven-web-app:latest
         ports:
         - containerPort: 8080
+        
   ##🔹 Service Manifest (service.yaml)
   apiVersion: v1
 kind: Service
@@ -126,6 +129,7 @@ spec:
   ports:
   - port: 80
     targetPort: 8080
+    
 #🔹 Jenkins Deployment Stage
 stage('Kubernetes Deployment') {
     steps {
@@ -137,6 +141,7 @@ stage('Kubernetes Deployment') {
         '''
     }
  }
+ 
 #🔹 Verification
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/b2344e86c1cf43c442de1eb512863931f21c4c62/Screenshot%202026-03-31%20172611.png)
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/a1c2ff95968d0cff9891b583e4535519bcf9945f/Screenshot%202026-03-31%20172749.png)
