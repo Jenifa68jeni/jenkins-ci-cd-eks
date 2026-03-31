@@ -1,0 +1,13 @@
+
+## 🔹 Workflow Overview
+Flow: **GitHub → Jenkins Pipeline → (Build/Test with Maven) → Docker Image Build → Docker Hub Upload → Kubernetes (EKS) Deployment → Verification via AWS LoadBalancer**
+
+### Components
+- **GitHub** → Stores and manages the source code repository  
+- **Jenkins** → Orchestrates the CI/CD pipeline and automates build/test stages  
+- **Maven** → Builds and packages the Java application into a WAR file  
+- **Docker** → Containerizes the application by creating Docker images  
+- **Docker Hub** → Stores and versions the Docker images for deployment  
+- **Kubernetes (EKS)** → Orchestrates and manages containerized application deployment in AWS  
+- **AWS Load Balancer** → Exposes the application to external users with a public endpoint  
+- **Browser** → Used to validate successful deployment by accessing the LoadBalancer URL  
