@@ -143,8 +143,11 @@ stage('Kubernetes Deployment') {
  }
  
 #🔹 Verification
+
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/b2344e86c1cf43c442de1eb512863931f21c4c62/Screenshot%202026-03-31%20172611.png)
+
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/a1c2ff95968d0cff9891b583e4535519bcf9945f/Screenshot%202026-03-31%20172749.png)
+
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/f4d6947b255c71a2f92c85b6a70e2f80a6b4ee0a/Screenshot%202026-03-31%20172907.png)
 
 
