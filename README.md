@@ -1,51 +1,53 @@
 # CI/CD Pipelines with Jenkins, Maven, Docker, Nexus, SonarQube, Tomcat, and Kubernetes (EKS)
 # INFRASTRUCTURE SETUP – AWS EC2 & EKS
 
-## 🔹 Operating System
+🔹 Operating System
 - **Amazon Linux AMI** used for Jenkins and EKS host instances.
 
-
-## 🔹 EC2 Instances
+🔹 EC2 Instances
 | Service   | Instance Name | Purpose                                | Default Port |
 |-----------|---------------|----------------------------------------|--------------|
 | Jenkins   | `jenkins`     | CI/CD pipeline execution               | 8080         |
 | EKS       | `eks-cluster` | Cluster creation & management (kubectl, eksctl, AWS CLI) | 22 (SSH)     |
 | Docker Hub| Cloud Service | Artifact repository for container 
-## 🔹 Security Group – Inbound Rules
+🔹 Security Group – Inbound Rules
 - **22 (SSH)** → Restricted to your IP only  
 - **8080 (Jenkins)** → Open for Jenkins UI access
+
 # JENKINS SETUP
 
-## 🔹 Installation
+ 🔹 Installation
 - Jenkins installed on a dedicated **EC2 instance** (`jenkins`) running Amazon Linux AMI.  
 - Service started and verified.  
 - Jenkins UI accessible at:  http://13.126.197.139:8080/
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/2fec336171e63b52b1cfd3e76f809bbf8850e98d/Screenshot%202026-03-31%20170243.png)
  
-## 🔹 Global Tool Configuration
+ 🔹 Global Tool Configuration
 - Navigate to: **Manage Jenkins → Global Tool Configuration**  
 - Configured Maven installation:  
 - Name: `maven`  
 - Version: `3.8.4`  
 - Docker installed on Jenkins server to enable container image creation and pushing to Docker Hub.  
 - Jenkins user added to Docker group for pipeline execution.
+
 # JENKINS CREDENTIALS SETUP
 
-## 🔹 Purpose
+🔹 Purpose
 Credentials in Jenkins are used to securely store sensitive information such as Docker Hub login, SSH keys, and cloud access tokens. These are then referenced in pipeline stages without exposing them in code.
 
 ---
 
-## 🔹 Stored Credentials
+🔹 Stored Credentials
 - **Docker Hub Credentials**
   - ID: `dockerhub-credentials`
   - Used by Jenkins pipeline to push Docker images into Docker Hub.
   
 - **SSH Agent Credentials**
   - Used for secure communication with EC2/EKS host VM if required.
+  - 
 # EKS HOST VM SETUP
 
-## 🔹 Purpose
+ 🔹 Purpose
 The EKS Host VM was launched and configured to manage the Kubernetes cluster.  
 Installed tools:
 - **AWS CLI** → Connect Jenkins with AWS EKS  
@@ -67,11 +69,11 @@ eksctl create cluster \
   --zones ap-south-1a,ap-south-1b
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/27683bebcc8028bfab9803701b117d3458d8c94d/Screenshot%202026-03-31%20171240.png)
 
-##🔹 Verification
+🔹 Verification
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/4e81d36f82b105a2b8eba1bdb0e573a7a7fdf939/Screenshot%202026-03-31%20171443.png)
 # JENKINS PIPELINE INTEGRATION WITH KUBERNETES (EKS)
 
-## 🔹 IAM Role Setup (Jenkins VM)
+🔹 IAM Role Setup (Jenkins VM)
 Attached IAM role to the Jenkins EC2 instance with permissions:
 - AmazonEC2ContainerRegistryReadOnly  
 - AmazonEC2FullAccess  
@@ -79,11 +81,14 @@ Attached IAM role to the Jenkins EC2 instance with permissions:
 - AmazonEKSWorkerNodePolicy  
 
 This allows Jenkins to communicate securely with EC2 and EKS services for deployment operations.
+
 ## Verification:
+
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/f73fd112fe683e55d7fb28385de831fff02debc9/Screenshot%202026-03-31%20172007.png)
+
 # KUBERNETES DEPLOYMENT SETUP (JENKINS CLUSTER CONNECTION)
 
-## 🔹 Required Tools on Jenkins Server
+ 🔹 Required Tools on Jenkins Server
 - **AWS CLI** → Connect Jenkins with AWS EKS  
 - **kubectl** → Interact with the Kubernetes cluster  
 - **eksctl** → Manage EKS cluster creation and scaling  
