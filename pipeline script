@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+    tools {
+        maven "maven"
+    }
+    environment {
+        KUBECONFIG = "/var/lib/jenkins/qube/config"
+    }
+    stages {
+
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/suffixscope/maven-web-app.git'
+            }
+        }
+
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    sh 'docker build -t jenifajeni/maven-web-app:latest .'
+                }
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                    sh 'docker push jenifajeni/maven-web-app:latest'
+                }
+            }
+        }
+
+        stage('Test EKS Connection') {
+            steps {
+                sh 'kubectl get nodes'
+            }
+        }
+
+        stage('Kubernetes Deployment') {
+            steps {
+                sh '''
+                    kubectl apply -f deployment.yaml
+                    kubectl apply -f service.yaml
+                    kubectl get pods
+                    kubectl get svc
+                '''
+            }
+        }
+
+        stage('Verification') {
+            steps {
+                sh 'kubectl get pods'
+                sh 'kubectl get svc'
+            }
+        }
+    }
+}
