@@ -90,13 +90,13 @@ This allows Jenkins to communicate securely with EC2 and EKS services for deploy
 
 
 
-## 🔹 Kubeconfig Setup
+ 🔹 Kubeconfig Setup
 - Copy the `.kube/config` file generated during cluster creation into Jenkins server.  
 - Place it inside `/var/lib/jenkins/qube/config`.  
 - Verified cluster connectivity with:  
   kubectl get nodes
   
-##🔹 Deployment Manifest (deployment.yaml)
+🔹 Deployment Manifest (deployment.yaml)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -117,7 +117,7 @@ spec:
         ports:
         - containerPort: 8080
         
-  ##🔹 Service Manifest (service.yaml)
+🔹 Service Manifest (service.yaml)
   apiVersion: v1
 kind: Service
 metadata:
@@ -130,7 +130,7 @@ spec:
   - port: 80
     targetPort: 8080
     
-#🔹 Jenkins Deployment Stage
+🔹 Jenkins Deployment Stage
 stage('Kubernetes Deployment') {
     steps {
         sh '''
@@ -142,7 +142,7 @@ stage('Kubernetes Deployment') {
     }
  }
  
-#🔹 Verification
+🔹 Verification
 
 ![image alt](https://github.com/Jenifa68jeni/jenkins-ci-cd-eks/blob/b2344e86c1cf43c442de1eb512863931f21c4c62/Screenshot%202026-03-31%20172611.png)
 
